@@ -22,7 +22,7 @@ public class TwitterCommand implements ICommand{
                 builder.append(args[x] + " ");
             }
 
-            TwitterHandler.sendTweet(event.getAuthor(), event.getGuild(), builder.toString());
+            TwitterHandler.sendTweet(event.getAuthor(), event.getTextChannel(), builder.toString());
         }
     }
 

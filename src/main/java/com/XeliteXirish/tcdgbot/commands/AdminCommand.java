@@ -15,11 +15,12 @@ import java.util.List;
 
 public class AdminCommand implements ICommand {
 
-    private static String[] adminCommands = {"reload", "clear", "status", "add"};
+    private static String[] adminCommands = {"reload", "clear", "status", "add", "list"};
     private static String[] adminCommandHelp = {"Reloads the data from the online git source, removing any offline edits",
             "Clears recent bot messages, Usage 'clear <number>'",
             "Sets the bot status to the specified text",
-            "Adds a user to the TCDG owners <needs a commit to be permanent>"};
+            "Adds a user to the TCDG owners <needs a commit to be permanent>",
+            "List the current TCDG Owners that have permission to use the bot"};
 
     @Override
     public boolean called(String[] args, MessageReceivedEvent event) {
@@ -32,7 +33,7 @@ public class AdminCommand implements ICommand {
         if (args.length == 0) {
             sendAdminHelpMessage(event);
         } else {
-            if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor())) {
+            if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                 if (args[0].equalsIgnoreCase(adminCommands[0])) {
                     event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock("Reloading users from github..."));
                     PrivHandler.reloadFromGit();
@@ -73,9 +74,15 @@ public class AdminCommand implements ICommand {
                             builder.append(args[x] + " ");
                         }
                         event.getJDA().getAccountManager().setGame(builder.toString());
-                        event.getTextChannel().sendMessage(event.getAuthor().getAsMention() + " has changed the title to: " + builder.toString());
+                        event.getTextChannel().sendMessage(event.getAuthor().getAsMention() + " has changed the status to: " + builder.toString());
                     } else {
                         event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock("Use '!dev admin playing <title>'"));
+                    }
+                }else if(args[0].equalsIgnoreCase(adminCommands[4])){
+                    StringBuilder builder = new StringBuilder();
+                    builder.append("The current TCDG Owners are: \n");
+                    for(User user : PrivHandler.getTCDGOwners()){
+                        builder.append(user.getUsername() + "\n");
                     }
                 }
             } else if (PrivHandler.isUserTCDGOwner(event.getAuthor())) {
@@ -85,11 +92,11 @@ public class AdminCommand implements ICommand {
                             PrivHandler.addUserToTcdgOwners(event.getAuthor(), user);
                         }
                     } else {
-                        MessageUtils.sendNoPermissionMessage(event.getAuthor(), event.getGuild());
+                        MessageUtils.sendNoPermissionMessage(event.getAuthor(), event.getTextChannel());
                     }
                 }
             } else {
-                MessageUtils.sendNoPermissionMessage(event.getAuthor(), event.getGuild());
+                MessageUtils.sendNoPermissionMessage(event.getAuthor(), event.getTextChannel());
             }
         }
     }

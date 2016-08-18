@@ -3,6 +3,7 @@ package com.XeliteXirish.tcdgbot.handler;
 import com.XeliteXirish.tcdgbot.utils.BotLogger;
 import com.XeliteXirish.tcdgbot.utils.MessageUtils;
 import net.dv8tion.jda.entities.Guild;
+import net.dv8tion.jda.entities.TextChannel;
 import net.dv8tion.jda.entities.User;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -24,18 +25,18 @@ public class TwitterHandler {
 
     }
 
-    public static void sendTweet(User sender, Guild guild, String tweet) {
+    public static void sendTweet(User sender, TextChannel textChannel, String tweet) {
         if (PrivHandler.isUserTCDGOwner(sender)) {
             try {
                 Status status = twitter.updateStatus(tweet);
-                guild.getPublicChannel().sendMessage("Tweeted: " + status.getText());
+                textChannel.sendMessage("Tweeted: " + status.getText());
 
                 BotLogger.twitterLog(sender.getUsername() + "tweeted: " + status.getText());
             } catch (TwitterException e) {
                 e.printStackTrace();
             }
         }else {
-            MessageUtils.sendNoPermissionMessage(sender, guild);
+            MessageUtils.sendNoPermissionMessage(sender, textChannel);
         }
     }
 }

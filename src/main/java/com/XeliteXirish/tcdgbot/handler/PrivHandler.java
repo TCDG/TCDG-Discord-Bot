@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PrivHandler {
 
@@ -33,6 +34,7 @@ public class PrivHandler {
     }
 
     public static boolean isUserServerStaff(Guild guild, User user) {
+        if(user.getId().equals(Constants.XELITEXIRISH_USER_ID)) return true;
         for (Role role : guild.getRolesForUser(user)) {
             return role.hasPermission(Permission.MESSAGE_MANAGE);
         }
@@ -105,5 +107,9 @@ public class PrivHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<User> getTCDGOwners(){
+        return tcdgOwners;
     }
 }

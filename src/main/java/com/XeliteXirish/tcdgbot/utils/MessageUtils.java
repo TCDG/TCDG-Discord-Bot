@@ -4,6 +4,7 @@ import net.dv8tion.jda.MessageBuilder;
 import net.dv8tion.jda.Permission;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.entities.Message;
+import net.dv8tion.jda.entities.TextChannel;
 import net.dv8tion.jda.entities.User;
 
 public class MessageUtils {
@@ -20,8 +21,8 @@ public class MessageUtils {
         return messageBuilder.build();
     }
 
-    public static void sendNoPermissionMessage(User author, Guild guild) {
+    public static void sendNoPermissionMessage(User author, TextChannel channel) {
         String message = "Sorry but you don't have the required permission to use this command.";
-        guild.getPublicChannel().sendMessage(author.getAsMention() + MessageUtils.wrapStringInCodeBlock(message));
+        channel.sendMessage(author.getAsMention() + MessageUtils.wrapStringInCodeBlock(message));
     }
 }
