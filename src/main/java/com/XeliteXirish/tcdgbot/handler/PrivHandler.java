@@ -16,10 +16,11 @@ import java.util.ArrayList;
 public class PrivHandler {
 
     private static ArrayList<User> tcdgOwners = new ArrayList<>();
-    private static File tcdgUserOwners = new File("tcdg_user_owners");
+    private static File tcdgUserOwners = new File("tcdg_user_owners.json");
 
     public static void setupUsers() {
-        addDefaultTCDGOwners();
+        //addDefaultTCDGOwners();
+        writeOwnersList();
     }
 
     public static boolean isUserTCDGOwner(User user) {

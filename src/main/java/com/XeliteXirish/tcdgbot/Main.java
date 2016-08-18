@@ -3,6 +3,7 @@ package com.XeliteXirish.tcdgbot;
 import com.XeliteXirish.tcdgbot.commands.HelpCommand;
 import com.XeliteXirish.tcdgbot.commands.ICommand;
 import com.XeliteXirish.tcdgbot.commands.TwitterCommand;
+import com.XeliteXirish.tcdgbot.handler.PrivHandler;
 import com.XeliteXirish.tcdgbot.handler.TwitterHandler;
 import com.XeliteXirish.tcdgbot.listeners.BotListener;
 import com.XeliteXirish.tcdgbot.utils.CommandParser;
@@ -43,6 +44,7 @@ public class Main {
         }
 
         registerCommands();
+        PrivHandler.setupUsers();
         TwitterHandler.init(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
     }
 
