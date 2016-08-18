@@ -1,5 +1,6 @@
 package com.XeliteXirish.tcdgbot;
 
+import com.XeliteXirish.tcdgbot.commands.AdminCommand;
 import com.XeliteXirish.tcdgbot.commands.HelpCommand;
 import com.XeliteXirish.tcdgbot.commands.ICommand;
 import com.XeliteXirish.tcdgbot.commands.TwitterCommand;
@@ -51,6 +52,7 @@ public class Main {
     private static void registerCommands(){
         commands.put("help", new HelpCommand());
         commands.put("tweet", new TwitterCommand());
+        commands.put("admin", new AdminCommand());
     }
 
     public static void handleCommand(CommandParser.CommandContainer cmd){
