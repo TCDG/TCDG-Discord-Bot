@@ -19,8 +19,7 @@ public class PrivHandler {
     private static File tcdgUserOwners = new File("tcdg_user_owners.json");
 
     public static void setupUsers() {
-        //addDefaultTCDGOwners();
-        writeOwnersList();
+        addDefaultTCDGOwners();
     }
 
     public static boolean isUserTCDGOwner(User user) {
