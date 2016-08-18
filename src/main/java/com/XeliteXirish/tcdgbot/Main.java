@@ -1,5 +1,6 @@
 package com.XeliteXirish.tcdgbot;
 
+import com.XeliteXirish.tcdgbot.commands.HelpCommand;
 import com.XeliteXirish.tcdgbot.commands.ICommand;
 import com.XeliteXirish.tcdgbot.listeners.BotListener;
 import com.XeliteXirish.tcdgbot.utils.CommandParser;
@@ -15,13 +16,21 @@ public class Main {
     public static HashMap<String, ICommand> commands = new HashMap<>();
 
     public static String DISCORD_TOKEN;
+    private static String CONSUMER_KEY;
+    private static String CONSUMER_SECRET;
+    private static String ACCESS_TOKEN;
+    private static String ACCESS_TOKEN_SECRET;
 
     public static void main(String[] args){
 
-        if(args.length == 1){
+        if(args.length == 5){
             DISCORD_TOKEN = args[0];
+            CONSUMER_KEY = args[1];
+            CONSUMER_SECRET = args[2];
+            ACCESS_TOKEN = args[3];
+            ACCESS_TOKEN_SECRET = args[4];
         }else {
-            System.out.println("Please enter a valid Discord Bot Token!");
+            System.out.println("Please check to make sure you entered the correct arguments: <Discord Token, Consumer Key, Consumer Secret, Access Token, Access Token Secret>");
             return;
         }
 
@@ -30,6 +39,13 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        registerCommands();
+        TwitterHandler.init(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+    }
+
+    private static void registerCommands(){
+        commands.put("help", new HelpCommand());
     }
 
     public static void handleCommand(CommandParser.CommandContainer cmd){
