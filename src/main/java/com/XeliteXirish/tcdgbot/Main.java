@@ -2,6 +2,7 @@ package com.XeliteXirish.tcdgbot;
 
 import com.XeliteXirish.tcdgbot.commands.HelpCommand;
 import com.XeliteXirish.tcdgbot.commands.ICommand;
+import com.XeliteXirish.tcdgbot.handler.TwitterHandler;
 import com.XeliteXirish.tcdgbot.listeners.BotListener;
 import com.XeliteXirish.tcdgbot.utils.CommandParser;
 import net.dv8tion.jda.JDA;
