@@ -44,7 +44,7 @@ public class PrivHandler {
                     JSONObject jsonItem = jsonArray.getJSONObject(x);
 
                     String[] userSplit = String.valueOf(jsonItem.get("userSplit")).split("-");
-                    String userId = userSplit[0];
+                    String userId = userSplit[1];
 
                     User user = Main.jda.getUserById(userId);
                     if (user != null) {
@@ -88,7 +88,7 @@ public class PrivHandler {
                 String userId = tcdgOwners.get(x).getId();
                 String username = tcdgOwners.get(x).getUsername();
 
-                jsonArrayUsers.put(userId + ":" + username);
+                jsonArrayUsers.put(username + ":" + userId);
             }
 
             FileWriter fileWriter = new FileWriter(tcdgUserOwners);
