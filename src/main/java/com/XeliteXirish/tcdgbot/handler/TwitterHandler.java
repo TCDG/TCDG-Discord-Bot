@@ -27,7 +27,7 @@ public class TwitterHandler {
         if (PrivHandler.isUserTCDGOwner(sender)) {
             try {
                 Status status = twitter.updateStatus(tweet);
-
+                guild.getPublicChannel().sendMessage("Tweeted: " + status.getText());
 
             } catch (TwitterException e) {
                 e.printStackTrace();
