@@ -1,5 +1,6 @@
 package com.XeliteXirish.tcdgbot.handler;
 
+import com.XeliteXirish.tcdgbot.utils.BotLogger;
 import com.XeliteXirish.tcdgbot.utils.MessageUtils;
 import net.dv8tion.jda.entities.Guild;
 import net.dv8tion.jda.entities.User;
@@ -14,12 +15,12 @@ public class TwitterHandler {
     private static Twitter twitter;
 
     public static void init(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
+
         ConfigurationBuilder config = new ConfigurationBuilder();
         config.setDebugEnabled(true).setOAuthConsumerKey(consumerKey).setOAuthConsumerSecret(consumerSecret).setOAuthAccessToken(accessToken).setOAuthAccessTokenSecret(accessTokenSecret);
 
         TwitterFactory twitterFactory = new TwitterFactory(config.build());
         twitter = twitterFactory.getInstance();
-
 
     }
 
@@ -29,6 +30,7 @@ public class TwitterHandler {
                 Status status = twitter.updateStatus(tweet);
                 guild.getPublicChannel().sendMessage("Tweeted: " + status.getText());
 
+                BotLogger.twitterLog(sender.getUsername() + "tweeted: " + status.getText());
             } catch (TwitterException e) {
                 e.printStackTrace();
             }

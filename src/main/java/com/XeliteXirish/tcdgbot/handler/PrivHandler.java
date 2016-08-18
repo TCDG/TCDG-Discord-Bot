@@ -4,6 +4,9 @@ import com.XeliteXirish.tcdgbot.Main;
 import com.XeliteXirish.tcdgbot.utils.Constants;
 import com.XeliteXirish.tcdgbot.utils.JsonReader;
 import com.XeliteXirish.tcdgbot.utils.MessageUtils;
+import net.dv8tion.jda.Permission;
+import net.dv8tion.jda.entities.Guild;
+import net.dv8tion.jda.entities.Role;
 import net.dv8tion.jda.entities.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,7 +32,10 @@ public class PrivHandler {
         return false;
     }
 
-    public static boolean isUserServerStaff(User user) {
+    public static boolean isUserServerStaff(Guild guild, User user) {
+        for (Role role : guild.getRolesForUser(user)) {
+            return role.hasPermission(Permission.MESSAGE_MANAGE);
+        }
         return false;
     }
 
