@@ -82,8 +82,9 @@ public class AdminCommand implements ICommand {
                     StringBuilder builder = new StringBuilder();
                     builder.append("The current TCDG Owners are: \n");
                     for(User user : PrivHandler.getTCDGOwners()){
-                        builder.append(user.getUsername() + "\n");
+                        builder.append(user.getUsername() + " - " + user.getId() + "\n");
                     }
+                    event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock(builder.toString()));
                 }
             } else if (PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                 if (args[0].equalsIgnoreCase(adminCommands[3])) {
