@@ -33,11 +33,13 @@ public class AdminCommand implements ICommand {
         if (args.length == 0) {
             sendAdminHelpMessage(event);
         } else {
-            if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
-                if (args[0].equalsIgnoreCase(adminCommands[0])) {
+            if (args[0].equalsIgnoreCase(adminCommands[0])) {
+                if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                     event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock("Reloading users from github..."));
                     PrivHandler.reloadFromGit();
-                } else if (args[0].equalsIgnoreCase(adminCommands[1])) {
+                }
+            } else if (args[0].equalsIgnoreCase(adminCommands[1])) {
+                if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                     MessageChannel messageChannel = event.getChannel();
                     int clearedMessages = 0;
                     Collection<Message> messageCollection = new ArrayList<>();
@@ -65,8 +67,9 @@ public class AdminCommand implements ICommand {
                         }
                     }
                     event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock("Cleared " + clearedMessages + " messages from chat."));
-
-                } else if (args[0].equalsIgnoreCase(adminCommands[2])) {
+                }
+            } else if (args[0].equalsIgnoreCase(adminCommands[2])) {
+                if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                     if (args.length >= 2) {
                         StringBuilder builder = new StringBuilder();
 
@@ -78,10 +81,12 @@ public class AdminCommand implements ICommand {
                     } else {
                         event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock("Use '!dev admin playing <title>'"));
                     }
-                }else if(args[0].equalsIgnoreCase(adminCommands[4])){
+                }
+            } else if (args[0].equalsIgnoreCase(adminCommands[4])) {
+                if (PrivHandler.isUserServerStaff(event.getGuild(), event.getAuthor()) || PrivHandler.isUserTCDGOwner(event.getAuthor())) {
                     StringBuilder builder = new StringBuilder();
                     builder.append("The current TCDG Owners are: \n");
-                    for(User user : PrivHandler.getTCDGOwners()){
+                    for (User user : PrivHandler.getTCDGOwners()) {
                         builder.append(user.getUsername() + " - " + user.getId() + "\n");
                     }
                     event.getTextChannel().sendMessage(MessageUtils.wrapStringInCodeBlock(builder.toString()));
@@ -101,6 +106,7 @@ public class AdminCommand implements ICommand {
             }
         }
     }
+
 
     @Override
     public String help() {

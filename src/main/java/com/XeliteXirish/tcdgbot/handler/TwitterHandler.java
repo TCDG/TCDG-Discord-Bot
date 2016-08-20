@@ -28,10 +28,10 @@ public class TwitterHandler {
     public static void sendTweet(User sender, TextChannel textChannel, String tweet) {
         if (PrivHandler.isUserTCDGOwner(sender)) {
             try {
-                Status status = twitter.updateStatus(tweet);
-                textChannel.sendMessage(sender.getUsername() + " tweeted: " + status.getText());
+                Status status = twitter.updateStatus(sender.getUsername() + "tweeted: " + tweet);
+                textChannel.sendMessage(status.getText());
 
-                BotLogger.twitterLog(sender.getUsername() + "tweeted: " + status.getText());
+                BotLogger.twitterLog(status.getText());
             } catch (TwitterException e) {
                 e.printStackTrace();
             }
