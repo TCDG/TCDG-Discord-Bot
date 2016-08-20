@@ -29,7 +29,7 @@ public class TwitterHandler {
         if (PrivHandler.isUserTCDGOwner(sender)) {
             try {
                 Status status = twitter.updateStatus(tweet);
-                textChannel.sendMessage("Tweeted: " + status.getText());
+                textChannel.sendMessage(sender.getUsername() + " tweeted: " + status.getText());
 
                 BotLogger.twitterLog(sender.getUsername() + "tweeted: " + status.getText());
             } catch (TwitterException e) {
