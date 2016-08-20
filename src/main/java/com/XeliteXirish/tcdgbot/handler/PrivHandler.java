@@ -96,7 +96,7 @@ public class PrivHandler {
                 String userId = tcdgOwners.get(x).getId();
                 String username = tcdgOwners.get(x).getUsername();
 
-                jsonArrayUsers.put(username + ":" + userId);
+                jsonArrayUsers.put(username + "-" + userId);
             }
 
             FileWriter fileWriter = new FileWriter(tcdgUserOwners);
