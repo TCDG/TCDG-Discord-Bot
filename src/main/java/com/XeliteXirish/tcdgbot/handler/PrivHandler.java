@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class PrivHandler {
@@ -96,7 +97,7 @@ public class PrivHandler {
                 String userId = tcdgOwners.get(x).getId();
                 String username = tcdgOwners.get(x).getUsername();
 
-                jsonArrayUsers.put(username + "-" + userId);
+                jsonArrayUsers.put("\"userSplit\": " + username + "-" + userId);
             }
 
             FileWriter fileWriter = new FileWriter(tcdgUserOwners);
