@@ -28,7 +28,7 @@ public class TwitterHandler {
     public static void sendTweet(User sender, TextChannel textChannel, String tweet) {
         if (PrivHandler.isUserTCDGOwner(sender)) {
             try {
-                Status status = twitter.updateStatus(sender.getUsername() + "tweeted: " + tweet);
+                Status status = twitter.updateStatus(sender.getUsername() + " tweeted: " + tweet);
                 textChannel.sendMessage(status.getText());
 
                 BotLogger.twitterLog(status.getText());
