@@ -10,10 +10,9 @@ import net.dv8tion.jda.entities.Role;
 import net.dv8tion.jda.entities.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,9 +47,24 @@ public class PrivHandler {
             JSONObject jsonObject = JsonReader.readJsonFromUrl(Constants.TCDG_OWNERS_URL);
             JSONArray jsonArray = jsonObject.getJSONArray("arrayTcdgOwners");
 
+
+            Iterator<Object> iterator = jsonArray.iterator();
+            while (iterator.hasNext()){
+
+                String[] userSplit = iterator.next().toString().split("-");
+                String userId = userSplit[1];
+
+                User user = Main.jda.getUserById(userId);
+                if (user != null) {
+                    tcdgOwners.add(user);
+                }
+            }
+
             if (jsonArray != null) {
+
                 for (int x = 0; x < jsonArray.length(); x++) {
                     JSONObject jsonItem = jsonArray.getJSONObject(x);
+
 
                     String[] userSplit = String.valueOf(jsonItem.get("userSplit")).split("-");
                     String userId = userSplit[1];
@@ -96,8 +110,9 @@ public class PrivHandler {
             for (int x = 0; x < tcdgOwners.size(); x++){
                 String userId = tcdgOwners.get(x).getId();
                 String username = tcdgOwners.get(x).getUsername();
+                String line = username + "-" + userId;
 
-                jsonArrayUsers.put('"'+ "userSplit" +'"' + ": " + username + "-" + userId);
+                jsonArrayUsers.put(line);
             }
 
             FileWriter fileWriter = new FileWriter(tcdgUserOwners);
