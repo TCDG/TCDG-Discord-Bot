@@ -60,22 +60,6 @@ public class PrivHandler {
                 }
             }
 
-            if (jsonArray != null) {
-
-                for (int x = 0; x < jsonArray.length(); x++) {
-                    JSONObject jsonItem = jsonArray.getJSONObject(x);
-
-
-                    String[] userSplit = String.valueOf(jsonItem.get("userSplit")).split("-");
-                    String userId = userSplit[1];
-
-                    User user = Main.jda.getUserById(userId);
-                    if (user != null) {
-                        tcdgOwners.add(user);
-                    }
-                }
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
